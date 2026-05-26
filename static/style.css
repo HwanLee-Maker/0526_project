@@ -23,7 +23,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -135,7 +136,8 @@ h2 {
   flex: 1;
 }
 
-input {
+input,
+select {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: 6px;
@@ -175,7 +177,7 @@ input {
 }
 
 .contact-form {
-  grid-template-columns: 1fr 1fr 1.5fr auto;
+  grid-template-columns: 1fr 0.7fr 0.7fr 1.4fr 0.8fr auto;
   align-items: end;
 }
 

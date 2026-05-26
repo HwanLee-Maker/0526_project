@@ -13,15 +13,25 @@ const FIELD_RULES = {
     maxLength: 40,
     pattern: /^[가-힣a-zA-Z0-9\s._-]+$/
   },
-  phone: {
-    label: "전화번호",
-    maxLength: 20,
-    pattern: /^[0-9+\-\s()]+$/
+  gender: {
+    label: "성별",
+    maxLength: 1,
+    pattern: /^(남|여)$/
+  },
+  age: {
+    label: "나이",
+    maxLength: 3,
+    pattern: /^(?:[1-9][0-9]?|1[01][0-9]|120)$/
   },
   address: {
-    label: "집주소",
+    label: "주소",
     maxLength: 120,
     pattern: /^[가-힣a-zA-Z0-9\s.,()#/_-]+$/
+  },
+  mbti: {
+    label: "MBTI",
+    maxLength: 4,
+    pattern: /^(INTJ|INTP|ENTJ|ENTP|INFJ|INFP|ENFJ|ENFP|ISTJ|ISFJ|ESTJ|ESFJ|ISTP|ISFP|ESTP|ESFP)$/
   }
 };
 
@@ -65,7 +75,7 @@ function renderContacts(contacts) {
   resultCount.textContent = `${contacts.length}건`;
 
   if (contacts.length === 0) {
-    tableBody.innerHTML = '<tr><td colspan="3" class="empty-cell">검색 결과가 없습니다.</td></tr>';
+    tableBody.innerHTML = '<tr><td colspan="5" class="empty-cell">검색 결과가 없습니다.</td></tr>';
     return;
   }
 
@@ -73,8 +83,10 @@ function renderContacts(contacts) {
     const row = document.createElement("tr");
     row.append(
       makeCell(contact.name),
-      makeCell(contact.phone),
-      makeCell(contact.address)
+      makeCell(contact.gender),
+      makeCell(contact.age),
+      makeCell(contact.address),
+      makeCell(contact.mbti)
     );
     return row;
   }));
@@ -90,7 +102,7 @@ async function loadContacts(query = "") {
   }
 
   if (!response.ok) {
-    tableBody.innerHTML = '<tr><td colspan="3" class="empty-cell">주소록을 불러오지 못했습니다.</td></tr>';
+    tableBody.innerHTML = '<tr><td colspan="5" class="empty-cell">주소록을 불러오지 못했습니다.</td></tr>';
     resultCount.textContent = "0건";
     return;
   }
@@ -119,8 +131,10 @@ contactForm.addEventListener("submit", async (event) => {
 
   const payload = {
     name: cleanField(document.getElementById("name").value),
-    phone: cleanField(document.getElementById("phone").value),
-    address: cleanField(document.getElementById("address").value)
+    gender: cleanField(document.getElementById("gender").value),
+    age: cleanField(document.getElementById("age").value),
+    address: cleanField(document.getElementById("address").value),
+    mbti: cleanField(document.getElementById("mbti").value)
   };
 
   for (const key of Object.keys(FIELD_RULES)) {

@@ -13,7 +13,7 @@
 
   <section class="toolbar">
     <form id="searchForm" class="search-form">
-      <input id="searchInput" name="q" type="search" placeholder="이름, 전화번호, 집주소 검색">
+      <input id="searchInput" name="q" type="search" placeholder="이름, 주소, MBTI 검색">
       <button type="submit" class="secondary-button">검색</button>
     </form>
   </section>
@@ -29,12 +29,42 @@
         <input id="name" name="name" type="text" placeholder="홍길동" maxlength="40" required>
       </label>
       <label>
-        전화번호
-        <input id="phone" name="phone" type="tel" placeholder="010-1234-5678" maxlength="20" required>
+        성별
+        <select id="gender" name="gender" required>
+          <option value="">선택</option>
+          <option value="남">남</option>
+          <option value="여">여</option>
+        </select>
       </label>
       <label>
-        집주소
-        <input id="address" name="address" type="text" placeholder="서울시 중구 ..." maxlength="120" required>
+        나이
+        <input id="age" name="age" type="number" min="1" max="120" placeholder="25" required>
+      </label>
+      <label>
+        주소
+        <input id="address" name="address" type="text" placeholder="서울 강남구" maxlength="120" required>
+      </label>
+      <label>
+        MBTI
+        <select id="mbti" name="mbti" required>
+          <option value="">선택</option>
+          <option value="INTJ">INTJ</option>
+          <option value="INTP">INTP</option>
+          <option value="ENTJ">ENTJ</option>
+          <option value="ENTP">ENTP</option>
+          <option value="INFJ">INFJ</option>
+          <option value="INFP">INFP</option>
+          <option value="ENFJ">ENFJ</option>
+          <option value="ENFP">ENFP</option>
+          <option value="ISTJ">ISTJ</option>
+          <option value="ISFJ">ISFJ</option>
+          <option value="ESTJ">ESTJ</option>
+          <option value="ESFJ">ESFJ</option>
+          <option value="ISTP">ISTP</option>
+          <option value="ISFP">ISFP</option>
+          <option value="ESTP">ESTP</option>
+          <option value="ESFP">ESFP</option>
+        </select>
       </label>
       <button type="submit" class="primary-button">추가</button>
     </form>
@@ -49,13 +79,15 @@
       <thead>
         <tr>
           <th>이름</th>
-          <th>전화번호</th>
-          <th>집주소</th>
+          <th>성별</th>
+          <th>나이</th>
+          <th>주소</th>
+          <th>MBTI</th>
         </tr>
       </thead>
       <tbody id="contactTableBody">
         <tr>
-          <td colspan="3" class="empty-cell">주소록을 불러오는 중입니다.</td>
+          <td colspan="5" class="empty-cell">주소록을 불러오는 중입니다.</td>
         </tr>
       </tbody>
     </table>
