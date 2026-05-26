@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}주소록 검색 - 주소록 관리{% endblock %}
+
+{% block content %}
+  <section class="page-heading">
+    <div>
+      <p class="eyebrow">Contacts</p>
+      <h1>주소록</h1>
+    </div>
+    <button id="logoutButton" type="button" class="secondary-button">로그아웃</button>
+  </section>
+
+  <section class="toolbar">
+    <form id="searchForm" class="search-form">
+      <input id="searchInput" name="q" type="search" placeholder="이름, 전화번호, 집주소 검색">
+      <button type="submit" class="secondary-button">검색</button>
+    </form>
+  </section>
+
+  <section class="editor">
+    <div class="compact-heading">
+      <h2>연락처 추가</h2>
+      <span id="contactMessage" class="message" aria-live="polite"></span>
+    </div>
+    <form id="contactForm" class="contact-form">
+      <label>
+        이름
+        <input id="name" name="name" type="text" placeholder="홍길동" maxlength="40" required>
+      </label>
+      <label>
+        전화번호
+        <input id="phone" name="phone" type="tel" placeholder="010-1234-5678" maxlength="20" required>
+      </label>
+      <label>
+        집주소
+        <input id="address" name="address" type="text" placeholder="서울시 중구 ..." maxlength="120" required>
+      </label>
+      <button type="submit" class="primary-button">추가</button>
+    </form>
+  </section>
+
+  <section class="contact-table" aria-label="주소록 목록">
+    <div class="table-summary">
+      <strong>검색 결과</strong>
+      <span id="resultCount">0건</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>이름</th>
+          <th>전화번호</th>
+          <th>집주소</th>
+        </tr>
+      </thead>
+      <tbody id="contactTableBody">
+        <tr>
+          <td colspan="3" class="empty-cell">주소록을 불러오는 중입니다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('search_static', filename='search.js') }}"></script>
+{% endblock %}
