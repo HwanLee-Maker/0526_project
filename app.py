@@ -286,15 +286,25 @@ def get_contacts():
     conn = get_db_connection()
 
     # 검색어 있으면 LIKE 검색
-    if q:
+    if q in ('남', '여'):
+
+        contacts = conn.execute('''
+            SELECT * FROM contacts
+            WHERE gender = ?
+            ORDER BY id DESC
+        ''', (q,)).fetchall()
+
+    elif q:
 
         contacts = conn.execute('''
             SELECT * FROM contacts
             WHERE
                 name LIKE ?
+                OR gender LIKE ?
                 OR address LIKE ?
                 OR mbti LIKE ?
         ''', (
+            f'%{q}%',
             f'%{q}%',
             f'%{q}%',
             f'%{q}%'
