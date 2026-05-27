@@ -4,7 +4,8 @@ from flask import (
     request,
     jsonify,
     session,
-    redirect
+    redirect,
+    send_from_directory
 )
 
 import sqlite3
@@ -190,6 +191,23 @@ def login_page():
     )
 
 
+# 기능별 JS 파일 라우팅
+@app.route("/auth/<path:filename>")
+def auth_static(filename):
+    return send_from_directory(
+        "templates/auth",
+        filename
+    )
+
+
+@app.route("/search/<path:filename>")
+def search_static(filename):
+    return send_from_directory(
+        "templates/search",
+        filename
+    )
+
+
 # -----------------------------------
 # 로그인 API
 # -----------------------------------
@@ -371,3 +389,4 @@ if __name__ == '__main__':
         debug=True,
         host='0.0.0.0'
     )
+
