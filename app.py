@@ -4,7 +4,8 @@ from flask import (
     request,
     jsonify,
     session,
-    redirect
+    redirect,
+    send_from_directory
 )
 
 import sqlite3
@@ -190,6 +191,14 @@ def login_page():
     )
 
 
+# 기능별 JS 파일 라우팅@app.route("/search/<path:filename>")
+def search_static(filename):
+    return send_from_directory(
+        "templates/search",
+        filename
+    )
+
+
 # -----------------------------------
 # 로그인 API
 # -----------------------------------
@@ -268,15 +277,25 @@ def get_contacts():
     conn = get_db_connection()
 
     # 검색어 있으면 LIKE 검색
-    if q:
+    if q in ('남', '여'):
+
+        contacts = conn.execute('''
+            SELECT * FROM contacts
+            WHERE gender = ?
+            ORDER BY id DESC
+        ''', (q,)).fetchall()
+
+    elif q:
 
         contacts = conn.execute('''
             SELECT * FROM contacts
             WHERE
                 name LIKE ?
+                OR gender LIKE ?
                 OR address LIKE ?
                 OR mbti LIKE ?
         ''', (
+            f'%{q}%',
             f'%{q}%',
             f'%{q}%',
             f'%{q}%'
@@ -371,3 +390,4 @@ if __name__ == '__main__':
         debug=True,
         host='0.0.0.0'
     )
+
